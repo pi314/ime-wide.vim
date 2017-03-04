@@ -2,22 +2,10 @@
 " boshiamy plugin meta data "
 " ========================= "
 
-let boshiamy_wide#type = 'standalone'
-let boshiamy_wide#icon = '[Ａ]'
-let boshiamy_wide#description = 'Wide characters'
-
-
-function! boshiamy_wide#description (locale)
-    return 'Wide characters'
-endfunction
-
-let boshiamy_wide#pattern = '\v(%(\w|[-!@#$%^&*=+()\[\]{}<>\\|;'',./:"? ])*)$'
-
-
 let s:table = {}
 
 
-function! boshiamy_wide#handler (matchobj)
+function! s:handler (matchobj)
     if s:table == {}
         let s:table = boshiamy_wide_autoload#table()
     endif
@@ -35,4 +23,15 @@ function! boshiamy_wide#handler (matchobj)
     endwhile
 
     return [l:ret]
+endfunction
+
+
+function! boshiamy_wide#info ()
+    return {
+    \ 'type': 'standalone',
+    \ 'icon': '[Ａ]',
+    \ 'description': 'Wide characters',
+    \ 'pattern': '\v(%(\w|[-!@#$%^&*=+()\[\]{}<>\\|;'',./:"? ])*)$',
+    \ 'handler': function('s:handler'),
+    \ }
 endfunction
