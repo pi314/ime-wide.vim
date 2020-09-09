@@ -8,7 +8,12 @@ function! ime_wide#handler (matchobj, trigger)
 
     let l:wide_str = a:matchobj[0] . a:trigger
     call ime#log('wide', l:wide_str)
-    return [get(s:table, l:wide_str, l:wide_str)]
+    let l:ret = get(s:table, l:wide_str, l:wide_str)
+    if type(l:ret) == type('')
+        return [(l:ret)]
+    else
+        return (l:ret)
+    endif
 endfunction
 
 
